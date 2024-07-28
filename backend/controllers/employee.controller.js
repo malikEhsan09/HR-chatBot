@@ -22,8 +22,8 @@ export const addMessage = async (req, res) => {
 // ? loginEmployee
 export const loginEmployee = async (req, res) => {
   try {
-    const { username, password } = req.body;
-    const employee = await Employee.findOne({ username });
+    const { password, email } = req.body;
+    const employee = await Employee.findOne({ email });
     if (!employee) {
       return res.status(400).json({ message: "Invalid credentials" });
     }

@@ -2,8 +2,9 @@ import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 
 const adminSchema = new mongoose.Schema({
-  username: { type: String, required: true, unique: true },
+  username: { type: String, unique: true },
   password: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "SuperAdmin",

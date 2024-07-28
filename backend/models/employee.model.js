@@ -3,8 +3,9 @@ import bcrypt from "bcryptjs";
 
 const employeeSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  username: { type: String, required: true, unique: true },
+  username: { type: String, unique: true },
   password: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Admin",

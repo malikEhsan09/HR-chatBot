@@ -1,4 +1,3 @@
-// import SuperAdmin from "../models/superAdminModel.js";
 import SuperAdmin from "../models/superAdmin.model.js";
 import Admin from "../models/admin.model.js";
 import bcrypt from "bcryptjs";
@@ -7,8 +6,8 @@ import jwt from "jsonwebtoken";
 // ? Create super admin controller
 export const createSuperAdmin = async (req, res) => {
   try {
-    const { username, password } = req.body;
-    const superAdmin = new SuperAdmin({ username, password });
+    const { email, username, password } = req.body;
+    const superAdmin = new SuperAdmin({ username, password, email });
     await superAdmin.save();
     res.status(201).json({ message: "SuperAdmin created successfully" });
   } catch (error) {
@@ -19,8 +18,8 @@ export const createSuperAdmin = async (req, res) => {
 // ? Login controller for super admin
 export const loginSuperAdmin = async (req, res) => {
   try {
-    const { username, password } = req.body;
-    const superAdmin = await SuperAdmin.findOne({ username });
+    const { email, password } = req.body;
+    const superAdmin = await SuperAdmin.findOne({ email });
     if (!superAdmin) {
       return res.status(400).json({ message: "Invalid credentials" });
     }
@@ -40,9 +39,9 @@ export const loginSuperAdmin = async (req, res) => {
 // ? Create admin controller
 export const createAdmin = async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { username, password, email } = req.body;
     const createdBy = req.superAdmin.id;
-    const admin = new Admin({ username, password, createdBy });
+    const admin = new Admin({ username, password, createdBy, email });
     await admin.save();
     res.status(201).json({ message: "Admin created successfully" });
   } catch (error) {
